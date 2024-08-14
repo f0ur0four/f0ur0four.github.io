@@ -4,5 +4,4 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-> Add Markdown syntax content to file `_tabs/about.md`{: .filepath } and it will show up on this page.
-{: .prompt-tip }
+Hey! My name is Ameen Uddin Sheikh and I am a cyber security enthusiast with my interest being in offensive security. I made this site to share my CTF write-ups, learning resources and other cool security related stuff!
