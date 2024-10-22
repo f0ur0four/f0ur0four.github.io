@@ -2,7 +2,7 @@
 title: Pakistan Cyber Security Challenge CTF Qualifiers 2024 - WEB Writeups
 date: 2024-10-22
 categories: [web,ctf]
-tags: [web, appsec]
+tags: [web, appsec, ctf]
 ---
 
 Assalamualaikum everyone! Recently, I participated in the Pakistan Cyber Security Challenge (PCC) CTF Qualifiers with my team "Sud03r5" in the Students division. We secured 4th place in the qualifiers, earning a spot in the finals, which will be held at Air University, Islamabad. It was an amazing experience. Huge props to team [AirOverflow](https://www.linkedin.com/company/airoverflow) for putting together such a great event! Kudos to my amazing teammates, [Abdullah Shahbaz (megachar0x01)](https://x.com/megachar0x01) and [Hassan Faraz (72ghoul / hexamine22)](https://x.com/hexamine22), for their amazing teamwork. This wouldn't have been possible without them.
