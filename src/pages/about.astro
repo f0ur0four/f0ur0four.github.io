@@ -1,0 +1,198 @@
+---
+import MetaPage from "@/components/MetaPage.astro"
+import { AUTHOR, SOCIALS } from "@/consts"
+import { achievements } from "@/data/achievements"
+import Layout from "@/layouts/Layout.astro"
+
+const medals: Record<string, string | undefined> = {
+  "1st": "🥇",
+  "2nd": "🥈",
+  "3rd": "🥉",
+}
+---
+
+<Layout>
+  <MetaPage
+    slot="head"
+    title="About"
+    description="About Ameen Uddin Sheikh (four0four), security researcher and CTF player. Interests, CTF results, and achievements."
+  />
+  <header class="about-header">
+    <img
+      src={AUTHOR.avatar}
+      alt="Illustration of a hacker overlooking a city at sunset"
+      width="400"
+      height="400"
+    />
+    <div>
+      <h1>{AUTHOR.name}</h1>
+      <p>{AUTHOR.handle}</p>
+    </div>
+  </header>
+
+  <section class="about-me" aria-labelledby="about-me">
+    <h2 id="about-me">About</h2>
+    <prose-content>
+      <p>
+        Hey! I'm Ameen also known by my username four0four, a security researcher and a CTF player with
+        an interest in offensive security, especially web application security and browsers.
+      </p>
+      <p>
+        I made this site to share my CTF writeups, learning resources and other
+        security related things that I find interesting.
+      </p>
+    </prose-content>
+    <nav aria-label="Find me online">
+      {SOCIALS.filter(({ label }) => label !== "RSS").map(({ href, label }) => (
+        <a href={href} target="_blank" rel="noopener noreferrer">{label}</a>
+      ))}
+    </nav>
+  </section>
+
+  <section class="achievements" aria-labelledby="ctf">
+    <h2 id="ctf">CTF</h2>
+    <ol>
+      {achievements.map(({ date, title, result, team, officialPage, post }) => (
+        <li>
+          <time datetime={date}>{date}</time>
+          <div>
+            <h3>{title}</h3>
+            <div class="entry-details">
+              {officialPage && (
+                <a href={officialPage} target="_blank" rel="noopener noreferrer">Official page</a>
+              )}
+              {post && (
+                <a href={post} target="_blank" rel="noopener noreferrer">Post</a>
+              )}
+              <p class="result" data-winner={result === "1st" || undefined}>
+                {team && <span>{team} / </span>}{result}
+                {medals[result] && (
+                  <> <span role="img" aria-label={`${result} place medal`}>{medals[result]}</span></>
+                )}
+              </p>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+</Layout>
+
+<style>
+  .about-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-m);
+    margin-block-end: var(--space-xl);
+
+    img {
+      inline-size: 6rem;
+      block-size: 6rem;
+      border-radius: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    h1 {
+      font-size: var(--step-3);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.2;
+    }
+
+    p {
+      margin-block-start: var(--space-2xs);
+      color: var(--accent);
+      font-size: var(--step-0);
+    }
+
+    @media (width < 30rem) {
+      img {
+        inline-size: 4.5rem;
+        block-size: 4.5rem;
+      }
+    }
+  }
+
+  h2 {
+    font-size: var(--step-2);
+    font-weight: var(--font-weight-medium);
+    margin-block-end: var(--space-m);
+    scroll-margin-block-start: var(--page-offset-top);
+  }
+
+  .about-me {
+    nav {
+      display: flex;
+      gap: var(--space-m);
+      margin-block-start: var(--space-m);
+      font-size: var(--step--1);
+
+      a {
+        color: var(--accent);
+        text-decoration-color: var(--border);
+      }
+    }
+  }
+
+  .achievements {
+    margin-block-start: var(--space-xl);
+    padding-block-start: var(--space-l);
+    border-block-start: 1px solid var(--border);
+
+    ol {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-l);
+    }
+
+    li {
+      display: grid;
+      grid-template-columns: 5rem minmax(0, 1fr);
+      gap: var(--space-s);
+    }
+
+    time {
+      padding-block-start: 0.2em;
+      font-size: var(--step--1);
+      font-variant-numeric: tabular-nums;
+      color: var(--muted-foreground);
+    }
+
+    h3 {
+      font-size: var(--step-0);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    .entry-details {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0 var(--space-2xs);
+      margin-block-start: var(--space-3xs);
+    }
+
+    .result {
+      color: var(--muted-foreground);
+      font-size: var(--step--1);
+    }
+
+    [data-winner] {
+      color: var(--success);
+      font-weight: var(--font-weight-medium);
+    }
+
+    a {
+      display: inline-block;
+      color: var(--accent);
+      font-size: var(--step--1);
+      text-decoration-color: var(--border);
+    }
+
+    @media (width < 25rem) {
+      li {
+        grid-template-columns: 4.2rem minmax(0, 1fr);
+        gap: var(--space-xs);
+      }
+    }
+  }
+</style>

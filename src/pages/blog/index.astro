@@ -1,0 +1,42 @@
+---
+import BlogCard from "@/components/BlogCard.astro"
+import MetaPage from "@/components/MetaPage.astro"
+import Layout from "@/layouts/Layout.astro"
+import { getPosts } from "@/lib/content"
+
+const posts = await getPosts()
+---
+
+<Layout>
+  <MetaPage slot="head" title="Blog" />
+  <header>
+    <h1>Writing</h1>
+    <p>CTF writeups, application security, and notes from things I break and learn.</p>
+  </header>
+  <ul>
+    {posts.map((post) => <BlogCard post={post} />)}
+  </ul>
+</Layout>
+
+<style>
+  header {
+    margin-block-end: var(--space-xl);
+
+    h1 {
+      font-size: var(--step-3);
+      font-weight: var(--font-weight-medium);
+    }
+
+    p {
+      margin-block-start: var(--space-xs);
+      color: var(--muted-foreground);
+      font-size: var(--step-0);
+    }
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+  }
+</style>
