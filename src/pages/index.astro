@@ -1,0 +1,136 @@
+---
+import BlogCard from "@/components/BlogCard.astro"
+import MetaPage from "@/components/MetaPage.astro"
+import Layout from "@/layouts/Layout.astro"
+import { AUTHOR, SOCIALS } from "@/consts"
+import { getPosts } from "@/lib/content"
+
+const posts = await getPosts()
+---
+
+<Layout>
+  <MetaPage slot="head" />
+  <header class="intro">
+    <div>
+      <h1>{AUTHOR.handle}</h1>
+      <p class="role">Security researcher &amp; CTF player.</p>
+    </div>
+    <img
+      src={AUTHOR.avatar}
+      alt="Illustration of a hacker overlooking a city at sunset"
+      width="400"
+      height="400"
+      fetchpriority="high"
+    />
+    <p class="bio">
+      I'm {AUTHOR.name} also known by my username four0four. 
+      I am an avid CTF player and a security researcher with my focus being on web application security.
+    </p>
+    <nav aria-label="Profile links">
+      <a href="/about">About</a>
+      {SOCIALS.filter(({ label }) => label !== "RSS").map(({ href, label }) => (
+        <a href={href} target="_blank" rel="noopener noreferrer">{label}</a>
+      ))}
+    </nav>
+  </header>
+
+  <section aria-labelledby="writing">
+    <div class="section-heading">
+      <h2 id="writing">Latest writing</h2>
+      <a href="/blog">All posts</a>
+    </div>
+    <ul class="posts">
+      {posts.map((post) => <BlogCard post={post} />)}
+    </ul>
+  </section>
+</Layout>
+
+<style>
+  .intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 8.5rem;
+    align-items: center;
+    gap: var(--space-m) var(--space-l);
+    margin-block-end: var(--space-2xl);
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 3.75rem);
+      font-weight: 550;
+      letter-spacing: -0.055em;
+      line-height: 1.1;
+    }
+
+    .role {
+      margin-block-start: var(--space-xs);
+      color: var(--accent);
+      font-size: var(--step-0);
+    }
+
+    img {
+      inline-size: 8.5rem;
+      block-size: 8.5rem;
+      border-radius: 1rem;
+    }
+
+    .bio {
+      grid-column: 1 / -1;
+      font-size: var(--step-0);
+      color: var(--muted-foreground);
+      line-height: 1.7;
+      max-inline-size: 56ch;
+    }
+
+    nav {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-m);
+      font-size: var(--step--1);
+
+      a {
+        text-decoration-color: var(--border);
+      }
+    }
+
+    @media (width < 30rem) {
+      grid-template-columns: minmax(0, 1fr) 5rem;
+      column-gap: var(--space-s);
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      img {
+        inline-size: 5rem;
+        block-size: 5rem;
+        border-radius: 0.625rem;
+      }
+    }
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-s);
+    padding-block-end: var(--space-s);
+    margin-block-end: var(--space-l);
+    border-block-end: 1px solid var(--border);
+
+    h2 {
+      font-size: var(--step-2);
+      font-weight: var(--font-weight-medium);
+    }
+
+    a {
+      font-size: var(--step--1);
+      color: var(--muted-foreground);
+    }
+  }
+
+  .posts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-l);
+  }
+</style>
